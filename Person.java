@@ -4,6 +4,12 @@ public class Person {
     private int age;
     private boolean gender;
 
+    public Person(String name, String surname, int age, boolean gender) {
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.gender = gender;
+    }
 
     public String getName(){
         return name;
@@ -32,13 +38,6 @@ public class Person {
     @Override
     public String toString(){
         String genderString= gender ? "Male" : "Female";
-        return "Hi, I am " + name + " "+ surname +" , a " + age + "-year-old"  + genderString+ ".";
-    }
-    public static void main(String[] args){
-        Person person = new Person("Harry","Potter","21","Male",true);
-        System.out.println(person.toString());
-
-        Person person1 = new Person("Ron","Oeslay", "34", false);
-        System.out.println(person1.toString());
+        return "Hi, I am " + name + " "+ surname +" , a " + age + "-year-old "  + genderString+ ".";
     }
 }
