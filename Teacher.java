@@ -1,8 +1,14 @@
+import java.util.ArrayList;
+import java.util.List;
 public class Teacher extends Person {
     private String subject;
     private int yearsOfExperience;
     private int salary;
 
+    public static List<Teacher>readTeachersFromFile(String fileName) {
+        List<Teacher> teachers = new ArrayList<>();
+        return teachers;
+    }
     public Teacher(String name,String surname, int age,boolean gender, String subject, int yearsOfExperience, int salary) {
         super(name, surname, age, gender);
         this.subject = subject;

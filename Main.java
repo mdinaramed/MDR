@@ -1,37 +1,67 @@
+import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
-public class Main{
+import java.util.Scanner;
 
+public class Main {
     public static void main(String[] args) throws Exception {
-        School school = new School();
-        Student student1=new Student("Harry", "Potter",21,true);
-        student1.addGrade(78);
-        student1.addGrade(89);
-        student1.addGrade(99);
-        student1.addGrade(51);
-        school.addMember(student1);
+        ArrayList<Person> members = new ArrayList<>();
 
-        Student student2=new Student("Ron", "Oeslay",20,true);
-        student2.addGrade(78);
-        student2.addGrade(89);
-        student2.addGrade(75);
-        student2.addGrade(63);
-        student2.addGrade(82);
-        school.addMember(student2);
+        File studentFile = new File("/Users/dinaramedeubek/Downloads/students.txt");
+        Scanner studentScanner = new Scanner(studentFile);
 
-        Teacher teacher1 =new Teacher("Severus", "Snape",51,true,"math",7,800000);
-        teacher1.giveRaise(10);
-        school.addMember(teacher1);
+        while (studentScanner.hasNextLine()) {
+            String name = studentScanner.next();
+            String surname = studentScanner.next();
+            int age = Integer.parseInt(studentScanner.next());
+            boolean gender = Boolean.parseBoolean(studentScanner.next());
 
-        Teacher teacher2 = new Teacher("Albus", "Dumbledore",71,true,"philosophy",25,1500000);
-        school.addMember(teacher2);
-        System.out.println(school);
-        for (Person member : school.getMembers()) {
-            if (member instanceof Student) {
-                Student student = (Student) member;
-                System.out.println(student.toString() + " GPA: " + student.calculateGPA());
+            Student student = new Student(name, surname, age, gender);
+
+            while (studentScanner.hasNextInt()) {
+                student.addGrade(studentScanner.nextInt());
+            }
+
+            members.add(student);
+
+            if (studentScanner.hasNextLine()) {
+                studentScanner.nextLine();
             }
         }
+        studentScanner.close();
 
+        File teacherFile = new File("/Users/dinaramedeubek/Downloads/teachers.txt");
+        Scanner teacherScanner = new Scanner(teacherFile);
+
+        while (teacherScanner.hasNextLine()) {
+            String name = teacherScanner.next();
+            String surname = teacherScanner.next();
+            int age = Integer.parseInt(teacherScanner.next());
+            boolean gender = Boolean.parseBoolean(teacherScanner.next());
+            String subject = teacherScanner.next();
+            int yearsOfExperience = Integer.parseInt(teacherScanner.next());
+            int salary = Integer.parseInt(teacherScanner.next());
+
+            Teacher teacher = new Teacher(name, surname, age, gender, subject, yearsOfExperience, salary);
+
+            members.add(teacher);
+
+            if (teacherScanner.hasNextLine()) {
+                teacherScanner.nextLine();
+            }
+        }
+        teacherScanner.close();
+
+        for (Person member : members) {
+            if (member instanceof Student) {
+                Student student = (Student) member;
+                System.out.println(student + " GPA: " + student.calculateGPA());
+            } else if (member instanceof Teacher) {
+                Teacher teacher = (Teacher) member;
+                if (teacher.getYearsOfExperience() > 10) {
+                    teacher.giveRaise(10);
+                }
+                System.out.println(teacher + " New Salary: " + teacher.getSalary());
+            }
+        }
     }
 }

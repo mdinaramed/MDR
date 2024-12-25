@@ -5,6 +5,10 @@ public class Student extends Person{
     private int studentID;
     private List<Integer> grades;
 
+    public static List<Student> readStudentsFromFile(String s){
+        List<Student> students = new ArrayList<>();
+        return students;
+    }
     public Student(String name,String surname, int age,boolean gender) {
         super(name,surname,age,gender);
         this.studentID=counter++;
