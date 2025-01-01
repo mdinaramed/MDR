@@ -1,38 +1,23 @@
-import java.util.ArrayList;
-import java.util.List;
-public class Student extends Person{
-    private static int counter=1;
-    private int studentID;
-    private List<Integer> grades;
+public class Student extends Person {
+    private double GPA;
 
-    public static List<Student> readStudentsFromFile(String s){
-        List<Student> students = new ArrayList<>();
-        return students;
+
+    public Student(String name, String surname, double GPA) {
+        super(name,surname);
+        this.GPA = GPA;
     }
-    public Student(String name,String surname, int age,boolean gender) {
-        super(name,surname,age,gender);
-        this.studentID=counter++;
-        this.grades=new ArrayList<>();
+    public double getGPA() {
+        return GPA;
     }
-    public void addGrade(int grade) {
-        if(grade>=0 && grade<=100) {
-            grades.add(grade);
-        } else {
-            System.out.println(" The grade must be between 0 and 100");
-        }
-    }
-    public double calculateGPA() {
-        if(grades.isEmpty()) {
-            return 0;
-        }
-        int sum=0;
-        for(Integer grade:grades) {
-            sum+=grade;
-        }
-        return (double) sum / grades.size();
+    public void setGPA(double GPA) {
+        this.GPA = GPA;
     }
     @Override
     public String toString() {
-        return super.toString() + " I am a student of " + studentID + ".";
+        return "Student: " + super.toString();
+    }
+    @Override
+    public double getPaymentAmount(){
+        return GPA>2.67 ? 36660.00 : 0;
     }
 }
