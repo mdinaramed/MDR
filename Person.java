@@ -1,43 +1,46 @@
-public class Person {
+public class Person implements Payable, Comparable<Person>{
+    private static int counter = 1;
+    private final int id;
     private String name;
     private String surname;
-    private int age;
-    private boolean gender;
 
-    public Person(String name, String surname, int age, boolean gender) {
+    public Person(String name, String surname) {
+        this.id = counter++;
         this.name = name;
         this.surname = surname;
-        this.age = age;
-        this.gender = gender;
     }
 
-    public String getName(){
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
         return name;
     }
-    public void setName(String name){
+
+    public void setName(String name) {
         this.name = name;
     }
-    public String getSurname(){
+
+    public String getSurname() {
         return surname;
     }
-    public void setSurname(String surname){
+
+    public void setSurname(String surname) {
         this.surname = surname;
     }
-    public int getAge(){
-        return age;
-    }
-    public void setAge(int age){
-        this.age = age;
-    }
-    public boolean getGender(){
-        return gender;
-    }
-    public void setGender(boolean gender){
-        this.gender = gender;
+
+    @Override
+    public double getPaymentAmount() {
+        return 0;
     }
     @Override
-    public String toString(){
-        String genderString= gender ? "Male" : "Female";
-        return "Hi, I am " + name + " "+ surname +" , a " + age + "-year-old "  + genderString+ ".";
+    public int compareTo(Person other) {
+        return Double.compare(this.getPaymentAmount(), other.getPaymentAmount());
+    }
+
+    @Override
+    public String toString() {
+        return id + ". " + name + " " + surname;
     }
 }
